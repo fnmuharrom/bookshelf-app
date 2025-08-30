@@ -1,5 +1,5 @@
-import { Book } from '@/types';
-import { BookItem } from '@/components/BookItem';
+import type { Book } from "@/types";
+import { BookItem } from "@/components/BookItem";
 
 interface BookListProps {
   title: string;
@@ -9,10 +9,18 @@ interface BookListProps {
   onDelete: (id: string) => void;
 }
 
-export function BookList({ title, books, onToggle, onEdit, onDelete }: BookListProps) {
+export function BookList({
+  title,
+  books,
+  onToggle,
+  onEdit,
+  onDelete,
+}: BookListProps) {
   return (
     <div className="flex flex-col gap-4">
-      <h2 className="text-xl font-semibold">{title} ({books.length})</h2>
+      <h2 className="text-xl font-semibold">
+        {title} ({books.length})
+      </h2>
       {books.length === 0 ? (
         <p className="text-muted-foreground text-center py-8">
           No books in this list. Add a book to get started!

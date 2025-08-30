@@ -1,26 +1,26 @@
-import { useState, useEffect } from 'react';
-import { Book } from '@/types';
-import { BookList } from '@/components/BookList';
-import { BookForm } from '@/components/BookForm';
-import { SearchInput } from '@/components/SearchInput';
-import { Button } from '@/components/ui/button';
-import { v4 as uuidv4 } from 'uuid';
+import { useState, useEffect } from "react";
+import type { Book } from "@/types";
+import { BookList } from "@/components/BookList";
+import { BookForm } from "@/components/BookForm";
+import { SearchInput } from "@/components/SearchInput";
+import { Button } from "@/components/ui/button";
+import { v4 as uuidv4 } from "uuid";
 
 export default function App() {
   const [books, setBooks] = useState<Book[]>(() => {
-    const savedBooks = localStorage.getItem('books');
+    const savedBooks = localStorage.getItem("books");
     return savedBooks ? JSON.parse(savedBooks) : [];
   });
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingBook, setEditingBook] = useState<Book | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Save books to localStorage whenever they change
   useEffect(() => {
-    localStorage.setItem('books', JSON.stringify(books));
+    localStorage.setItem("books", JSON.stringify(books));
   }, [books]);
 
-  const addBook = (bookData: Omit<Book, 'id'>) => {
+  const addBook = (bookData: Omit<Book, "id">) => {
     const newBook: Book = {
       ...bookData,
       id: uuidv4(),
@@ -30,21 +30,25 @@ export default function App() {
   };
 
   const updateBook = (updatedBook: Book) => {
-    setBooks(books.map(book => book.id === updatedBook.id ? updatedBook : book));
+    setBooks(
+      books.map((book) => (book.id === updatedBook.id ? updatedBook : book))
+    );
     setEditingBook(null);
     setIsFormOpen(false);
   };
 
   const deleteBook = (id: string) => {
-    setBooks(books.filter(book => book.id !== id));
+    setBooks(books.filter((book) => book.id !== id));
   };
 
   const toggleBookStatus = (id: string) => {
-    setBooks(books.map(book => 
-      book.id === id 
-        ? { ...book, status: book.status === 'read' ? 'unread' : 'read' } 
-        : book
-    ));
+    setBooks(
+      books.map((book) =>
+        book.id === id
+          ? { ...book, status: book.status === "read" ? "unread" : "read" }
+          : book
+      )
+    );
   };
 
   const handleEditBook = (book: Book) => {
@@ -52,7 +56,7 @@ export default function App() {
     setIsFormOpen(true);
   };
 
-  const handleFormSubmit = (bookData: Omit<Book, 'id'>) => {
+  const handleFormSubmit = (bookData: Omit<Book, "id">) => {
     if (editingBook) {
       updateBook({ ...bookData, id: editingBook.id });
     } else {
@@ -63,17 +67,19 @@ export default function App() {
   // Filter books based on search query
   const filterBooks = (books: Book[]) => {
     if (!searchQuery) return books;
-    
+
     const query = searchQuery.toLowerCase();
     return books.filter(
-      book => 
-        book.title.toLowerCase().includes(query) || 
+      (book) =>
+        book.title.toLowerCase().includes(query) ||
         book.author.toLowerCase().includes(query)
     );
   };
 
-  const readBooks = filterBooks(books.filter(book => book.status === 'read'));
-  const unreadBooks = filterBooks(books.filter(book => book.status === 'unread'));
+  const readBooks = filterBooks(books.filter((book) => book.status === "read"));
+  const unreadBooks = filterBooks(
+    books.filter((book) => book.status === "unread")
+  );
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
@@ -83,7 +89,7 @@ export default function App() {
           <p className="text-muted-foreground mt-2">
             Track your reading progress
           </p>
-          
+
           <div className="mt-6 max-w-md mx-auto">
             <SearchInput
               value={searchQuery}
@@ -91,9 +97,9 @@ export default function App() {
               placeholder="Search by title or author..."
             />
           </div>
-          
-          <Button 
-            className="mt-4" 
+
+          <Button
+            className="mt-4"
             onClick={() => {
               setEditingBook(null);
               setIsFormOpen(true);
@@ -111,7 +117,7 @@ export default function App() {
             onEdit={handleEditBook}
             onDelete={deleteBook}
           />
-          
+
           <BookList
             title="Read"
             books={readBooks}

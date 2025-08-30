@@ -1,24 +1,44 @@
-import { useState } from 'react';
-import { Book } from '@/types';
-import { Dialog, DialogContent, DialogHeader, DialogTitle } from '@/components/ui/dialog';
-import { Label } from '@/components/ui/label';
-import { Input } from '@/components/ui/input';
-import { Textarea } from '@/components/ui/textarea';
-import { Button } from '@/components/ui/button';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useState } from "react";
+import type { Book } from "@/types";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Button } from "@/components/ui/button";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface BookFormProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (book: Omit<Book, 'id'>) => void;
+  onSubmit: (book: Omit<Book, "id">) => void;
   initialData?: Book;
 }
 
-export function BookForm({ open, onOpenChange, onSubmit, initialData }: BookFormProps) {
-  const [title, setTitle] = useState(initialData?.title || '');
-  const [author, setAuthor] = useState(initialData?.author || '');
-  const [status, setStatus] = useState<Book['status']>(initialData?.status || 'unread');
-  const [description, setDescription] = useState(initialData?.description || '');
+export function BookForm({
+  open,
+  onOpenChange,
+  onSubmit,
+  initialData,
+}: BookFormProps) {
+  const [title, setTitle] = useState(initialData?.title || "");
+  const [author, setAuthor] = useState(initialData?.author || "");
+  const [status, setStatus] = useState<Book["status"]>(
+    initialData?.status || "unread"
+  );
+  const [description, setDescription] = useState(
+    initialData?.description || ""
+  );
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -26,29 +46,29 @@ export function BookForm({ open, onOpenChange, onSubmit, initialData }: BookForm
       title,
       author,
       status,
-      description
+      description,
     });
     // Reset form
-    setTitle('');
-    setAuthor('');
-    setStatus('unread');
-    setDescription('');
+    setTitle("");
+    setAuthor("");
+    setStatus("unread");
+    setDescription("");
   };
 
   const handleClose = () => {
     onOpenChange(false);
     // Reset form when closing
-    setTitle(initialData?.title || '');
-    setAuthor(initialData?.author || '');
-    setStatus(initialData?.status || 'unread');
-    setDescription(initialData?.description || '');
+    setTitle(initialData?.title || "");
+    setAuthor(initialData?.author || "");
+    setStatus(initialData?.status || "unread");
+    setDescription(initialData?.description || "");
   };
 
   return (
     <Dialog open={open} onOpenChange={handleClose}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{initialData ? 'Edit Book' : 'Add Book'}</DialogTitle>
+          <DialogTitle>{initialData ? "Edit Book" : "Add Book"}</DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
@@ -71,7 +91,10 @@ export function BookForm({ open, onOpenChange, onSubmit, initialData }: BookForm
           </div>
           <div className="space-y-2">
             <Label htmlFor="status">Status</Label>
-            <Select value={status} onValueChange={(value: Book['status']) => setStatus(value)}>
+            <Select
+              value={status}
+              onValueChange={(value: Book["status"]) => setStatus(value)}
+            >
               <SelectTrigger>
                 <SelectValue placeholder="Select status" />
               </SelectTrigger>
@@ -94,7 +117,7 @@ export function BookForm({ open, onOpenChange, onSubmit, initialData }: BookForm
             <Button type="button" variant="outline" onClick={handleClose}>
               Cancel
             </Button>
-            <Button type="submit">{initialData ? 'Update' : 'Add'} Book</Button>
+            <Button type="submit">{initialData ? "Update" : "Add"} Book</Button>
           </div>
         </form>
       </DialogContent>
