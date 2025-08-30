@@ -1,69 +1,75 @@
-# React + TypeScript + Vite
+# Bookshelf App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A simple React-based bookshelf app to manage reading lists with local storage persistence.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Dual book lists: "Read" and "Unread" sections
+- Add new books with title, author, and description
+- Edit existing books
+- Toggle status between Read/Unread (moves between lists)
+- Delete books from either list
+- Data persistence using local storage
+- Responsive design with shadcn/ui components
 
-## Expanding the ESLint configuration
+## Tech Stack
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React (functional components with hooks)
+- TypeScript
+- shadcn/ui for pre-built components
+- Tailwind CSS for styling
+- Local storage for data persistence
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+## Getting Started
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+1. Clone the repository
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+4. Open your browser to http://localhost:5173
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── BookForm.tsx       # Form for adding/editing books
+│   ├── BookItem.tsx       # Individual book card component
+│   ├── BookList.tsx       # List component for displaying books
+│   └── ui/                # shadcn/ui components
+├── lib/
+│   └── utils.ts           # Utility functions
+├── types.ts               # TypeScript type definitions
+├── App.tsx                # Main application component
+└── main.tsx               # Entry point
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Available Scripts
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+- `npm run dev` - Starts the development server
+- `npm run build` - Builds the app for production
+- `npm run lint` - Runs the linter
+- `npm run preview` - Previews the built app
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Data Structure
+
+Books are stored in local storage with the following structure:
+
+```typescript
+interface Book {
+  id: string;
+  title: string;
+  author: string;
+  status: 'read' | 'unread';
+  description?: string;
+}
 ```
+
+## Styling
+
+The app uses a soft pastel color scheme with responsive design principles. All UI components are built with shadcn/ui and styled with Tailwind CSS.

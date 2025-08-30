@@ -6,7 +6,6 @@ Create a simple React-based bookshelf app to manage reading lists with local sto
 **Tech Stack:**
 
 - React (functional components with hooks)
-- Tailwind CSS for styling
 - shadcn/ui for pre-built components
 - Local storage for data persistence
 
