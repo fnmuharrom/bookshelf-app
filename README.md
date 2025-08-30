@@ -1,75 +1,135 @@
 # Bookshelf App
 
-A simple React-based bookshelf app to manage reading lists with local storage persistence.
+A simple React-based bookshelf application to manage your reading lists with local storage persistence.
+
+![Bookshelf App Screenshot](public/screenshot.jpg)
 
 ## Features
 
-- Dual book lists: "Read" and "Unread" sections
-- Add new books with title, author, and description
-- Edit existing books
-- Toggle status between Read/Unread (moves between lists)
-- Delete books from either list
-- Data persistence using local storage
-- Responsive design with shadcn/ui components
+- **Dual Book Lists**: Organize books into "Read" and "Unread" sections
+- **Book Management**: 
+  - Add new books (default status: "Unread")
+  - Toggle status between Read/Unread (moves between lists)
+  - Edit book details (title, author, etc.)
+  - Delete books from either list
+- **Search Functionality**: Find books by title or author
+- **Data Persistence**: Automatically saves/load books from local storage
+- **Responsive Design**: Works on mobile and desktop devices
+- **Modern UI**: Clean interface with shadcn/ui components
 
 ## Tech Stack
 
-- React (functional components with hooks)
-- TypeScript
-- shadcn/ui for pre-built components
-- Tailwind CSS for styling
-- Local storage for data persistence
+- [React](https://reactjs.org/) (Functional components with hooks)
+- [TypeScript](https://www.typescriptlang.org/)
+- [shadcn/ui](https://ui.shadcn.com/) for pre-built components
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- [Vite](https://vitejs.dev/) for fast development
+- [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) for data persistence
 
 ## Getting Started
 
-1. Clone the repository
-2. Install dependencies:
+### Prerequisites
+
+- Node.js (version 16 or higher)
+- npm or yarn
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   ```
+
+2. Navigate to the project directory:
+   ```bash
+   cd bookshelf-app
+   ```
+
+3. Install dependencies:
    ```bash
    npm install
    ```
-3. Start the development server:
+   or
    ```bash
-   npm run dev
+   yarn install
    ```
-4. Open your browser to http://localhost:5173
+
+### Development
+
+To start the development server:
+
+```bash
+npm run dev
+```
+or
+```bash
+yarn dev
+```
+
+The application will be available at `http://localhost:5173` (or another port if 5173 is busy).
+
+### Building for Production
+
+To create a production build:
+
+```bash
+npm run build
+```
+or
+```bash
+yarn build
+```
+
+### Previewing Production Build
+
+To preview the production build locally:
+
+```bash
+npm run preview
+```
+or
+```bash
+yarn preview
+```
+
+## Usage
+
+1. Click "Add Book" to add a new book to your shelf (defaults to "Unread")
+2. Toggle the status of a book between "Read" and "Unread" using the switch
+3. Edit or delete books using the action buttons
+4. Search for books by title or author using the search bar
+5. All data is automatically saved to your browser's local storage
 
 ## Project Structure
 
 ```
 src/
-├── components/
-│   ├── BookForm.tsx       # Form for adding/editing books
-│   ├── BookItem.tsx       # Individual book card component
-│   ├── BookList.tsx       # List component for displaying books
-│   └── ui/                # shadcn/ui components
-├── lib/
-│   └── utils.ts           # Utility functions
-├── types.ts               # TypeScript type definitions
-├── App.tsx                # Main application component
-└── main.tsx               # Entry point
+├── components/     # React components
+├── lib/           # Utility functions
+├── types.ts       # TypeScript types
+├── App.tsx        # Main application component
+└── main.tsx       # Application entry point
 ```
-
-## Available Scripts
-
-- `npm run dev` - Starts the development server
-- `npm run build` - Builds the app for production
-- `npm run lint` - Runs the linter
-- `npm run preview` - Previews the built app
 
 ## Data Structure
 
-Books are stored in local storage with the following structure:
+Books are stored with the following structure:
 
 ```typescript
-interface Book {
+{
   id: string;
   title: string;
   author: string;
   status: 'read' | 'unread';
+  coverImage?: string;
   description?: string;
 }
 ```
 
-## Styling
+## Contributing
 
-The app uses a soft pastel color scheme with responsive design principles. All UI components are built with shadcn/ui and styled with Tailwind CSS.
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
